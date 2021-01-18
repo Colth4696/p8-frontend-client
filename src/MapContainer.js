@@ -20,7 +20,7 @@ const MyMapComponent = compose(
     <GoogleMap
         defaultZoom={18}
         defaultCenter={{ lat: 39.889986, lng: -104.948516 }}>
-        <RequestMarkers taskss={props.tasks} user={props.user} />
+        <RequestMarkers request={props.request} user={props.user} />
     </GoogleMap>
 
 )

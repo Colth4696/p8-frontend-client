@@ -5,7 +5,9 @@ class ChatBox extends Component {
   constructor() {
     super()
     this.state = { 
-      message: ""
+      content: "",
+      sender_id: "",
+      receiver_id: ""
     }
   }
 
@@ -18,12 +20,14 @@ class ChatBox extends Component {
 
   handleSubmit= (event) => {
     event.preventDefault()
-    const { message } = this.state
-    let chat = {
-      message: message,
+    const { content, sender_id, receiver_id } = this.state
+    let message = {
+      content: content,
+      sender_id: sender_id,
+      receiver_id: receiver_id
     }
 
-    axios.post("http://localhost:3003/chats", { chat },
+    axios.post("http://localhost:3003/messages", { message },
       { withCredentials: true }
     )
     .then(response => {
@@ -37,19 +41,36 @@ class ChatBox extends Component {
   event.preventDefault();
 };
 
+  getConvo= (event) => {
+    event.preventDefault()
+    axios.get("http://localhost:3003/conversations")
+    .then(response => {
+      console.log(response.data)
+      this.setState({ conversations: response.data.conversations });
+    })
+}
+
   render() {
     return (
       <div>
       <form onSubmit={this.handleSubmit}>
         <input
         type="text"
-        name="message"
+        name="content"
         placeholder="message"
-        value={this.state.message}
+        value={this.state.content}
         onChange={this.handleChange}
         required />
         
         <br />
+
+        <input
+        type="integer"
+        name="conversation_id"
+        placeholder="conversation_id"
+        value={this.state.conversation_id}
+        onChange={this.getConvo}
+        required />
 
         <button type="submit">Send</button>
       </form>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import Header from './Header'
-import Dashboard from './registrations/Dashboard'
+import Dashboard from './components/registrations/Dashboard'
 
 class Home extends Component {
   constructor(props){
@@ -39,7 +39,7 @@ return (
     <Link to='/signup'>Sign Up</Link>
     {
     this.props.loggedInStatus ?      
-    <Dashboard/>: 
+    <Dashboard user={this.state.user}/>: 
     null
     }
     </div>

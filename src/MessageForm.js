@@ -5,7 +5,9 @@ class MessageForm extends Component {
   constructor(props) {
     super(props)
     this.state = {       
-    message: ""
+    body: "",
+    to_id: "",
+    from_id: ""
 };
 }
 
@@ -18,13 +20,14 @@ this.setState({
 
 handleSubmit = (event) => {
 event.preventDefault()
-const {message} = this.state
+const {message, to_id, from_id} = this.state
 let messages = {
-  message: message
- 
+  message: message,
+  to_id: to_id,
+  from_id: from_id
 }
 
-    axios.post("http://localhost:3003/chats", {messages},
+    axios.post("http://localhost:3003/messages", {messages},
     { withCredentials: true }
     )
     .then(response => {
@@ -47,9 +50,9 @@ let messages = {
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
-            name="message"
+            name="body"
             placeholder="message"
-            value={this.state.message}
+            value={this.state.body}
             onChange={this.handleChange}
             required
           />

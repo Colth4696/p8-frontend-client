@@ -11,7 +11,7 @@ class RequestForm extends Component {
             description: "",
             latitude: "",
             longitude: "",
-            task_type: ""
+            category: ""
         };
     }
 
@@ -24,21 +24,22 @@ class RequestForm extends Component {
     
     handleSubmit = (event) => {
         event.preventDefault()
-        const {title, description, latitude, longitude, task_type} = this.state
-        let task = {
+        const {title, description, latitude, longitude, category} = this.state
+        let request = {
           title: title,
           description: description,
           latitude: latitude,
           longitude: longitude,
-          task_type: task_type
+          category: category
         }
 
-            axios.post("http://localhost:3003/tasks", {task},
+            axios.post("http://localhost:3003/requests", {request},
             { withCredentials: true }
             )
             .then(response => {
                 if (response.data.status === 'created') {
-                this.props.tasks(response.data);            
+                this.props.tasks(response.data)
+               // this.redirect()            
             }
         })        
             .catch(error => {
@@ -100,9 +101,9 @@ class RequestForm extends Component {
 
                         <input
                         type ="text"
-                        name ="task_type"
+                        name ="category"
                         placeholder="Material"
-                        value = {this.state.task_type}
+                        value = {this.state.category}
                         onChange = {this.handleChange} />
                  
                     </div>

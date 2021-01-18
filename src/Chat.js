@@ -5,24 +5,15 @@ const OpenRequest = ({ onClick }) =>
 (
   <button className="accept" 
   onClick={onClick}>
-    Help Me!
+    Volunteer!
   </button>
 )
 
-const MessageBox = ({ onClick, task }) => 
-(
-  <div className="M-Form">
-  <CloseBox onClick={onClick} task={task} />
-  </div>
-)
-
-const CloseBox = ({ onClick, task }) => {
-console.log(task)
+const CloseBox = ({ request }) => {
+console.log(request)
 return(
   <div>
-    <ChatBox task={task}/>
-  <button className="Close" 
-  onClick={onClick}>X</button>
+    <ChatBox request={request}/>
   </div>
 )
 }
@@ -49,8 +40,8 @@ class Chat extends Component{
 
       return(
         <div>
-          <OpenRequest onClick={this.boundShowMessage}/>
-          {this.state.showMessage && <ChatBox task={this.props.task}/>}
+          <OpenRequest onClick={this.boundShowMessage}/><ChatBox request={this.props.request}/>
+          {this.state.showMessage }
         </div>
       )
     }
